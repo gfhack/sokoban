@@ -1,8 +1,14 @@
 class Level
- attr_reader :boxes, :player, :spots
+ @level
 
- def initialize(file)
-    @boxes = "array de coordenadas (x, y)"
-    @player= "coordenada do jogador (x, y)"
+ def initialize
+ end
+
+ def read(name)
+    File.open("db/#{name}", "r") do |file|
+       file.map do |line|
+          @level = line.chomp.split("").inspect
+       end
+    end
  end
 end
