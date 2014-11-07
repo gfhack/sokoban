@@ -28,17 +28,28 @@ class Level
 
       case direction
          when :up
-            @player.x = (x-1)
+            unless @layout[x-1][y] == "#"
+               @player.x = (x-1)
+            end
          when :down
-            @player.x = (x+1)
+            unless @layout[x+1][y] == "#"
+               @player.x = (x+1)
+            end
          when :left
-            @player.y = (y-1)
+            unless @layout[x][y-1] == "#"
+               @player.y = (y-1)
+            end
          when :right
-            @player.y = (y+1)
+            unless @layout[x][y+1] == "#"
+               @player.y = (y+1)
+            end
       end
 
       @layout[@player.x][@player.y] = "@"
-      clear_last_pos(last_pos)
+
+      unless @player.x == x && @player.y == y
+         clear_last_pos(last_pos) 
+      end
    end
 
    def finished?
