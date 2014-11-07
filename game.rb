@@ -25,3 +25,5 @@ until @end or @level.finished?
 		menu.choice(:quit)  { @end = true }
 	end
 end
+
+puts "Congratulations!" if @level.finished?

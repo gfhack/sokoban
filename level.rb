@@ -37,7 +37,7 @@ class Level
                   end
                   
                   @player.x = (x-1)
-               elsif (@layout[x-1][y] == " ")
+               elsif (@layout[x-1][y] == " " || @layout[x-1][y] == ".")
                   @player.x = (x-1)
                end
             end
@@ -51,7 +51,7 @@ class Level
                   end
                   
                   @player.x = (x+1)
-               elsif (@layout[x+1][y] == " ")
+               elsif (@layout[x+1][y] == " "  || @layout[x+1][y] == ".")
                   @player.x = (x+1)
                end
             end
@@ -65,7 +65,7 @@ class Level
                   end
                   
                   @player.y = (y-1)
-               elsif (@layout[x][y-1] == " ")
+               elsif (@layout[x][y-1] == " "  || @layout[x][y-1] == ".")
                   @player.y = (y-1)
                end
             end
@@ -79,21 +79,36 @@ class Level
                   end
                   
                   @player.y = (y+1)
-               elsif (@layout[x][y+1] == " ")
+               elsif (@layout[x][y+1] == " "  || @layout[x][y+1] == ".")
                   @player.y = (y+1)
                end
             end
       end
 
-      @layout[@player.x][@player.y] = "@"
+      if (@layout[@player.x][@player.y] == ".")
+         @layout[@player.x][@player.y] = "+"
+      else
+         @layout[@player.x][@player.y] = "@"
+      end
 
       unless @player.x == x && @player.y == y
-         clear_last_pos(last_pos) 
+         unless (@layout[x][y] == "+")
+            clear_last_pos(last_pos)
+         else
+            @layout[x][y] = "."
+         end
+         
       end
    end
 
    def finished?
-      return false
+      @layout.each_with_index do |line, x|
+         line.each_with_index do |ele, y|
+            return false if ele == "."
+         end
+      end
+
+      return true
    end
 
    def draw
