@@ -6,22 +6,22 @@ require './player'
 
 @level = Level.new
 @end = false
-#w = get_character
-#puts w
 
 choose do |menu|
-   menu.prompt = "Choose your destiny:"
-   
-   Dir.glob("db/*.txt").map do |name|
-      menu.choice(%Q$:#{name}$) { @level.read(%Q$#{name}$) }
-   end
+	menu.prompt = "Choose your destiny:"
+
+	Dir.glob("db/*.txt").map do |name|
+		menu.choice(%Q$:#{name}$) { @level.read(%Q$#{name}$) }
+	end
 end
 
-@level.draw
-
 until @end or @level.finished?
-   menu.choice(:up)    { }
-   menu.choice(:down)  { }
-   menu.choice(:left)  { }
-   menu.choice(:right) { }
+	@level.draw
+	choose do |menu|
+		menu.choice(:up)    { @level.move(:up) }
+		menu.choice(:down)  { @level.move(:down) }
+		menu.choice(:left)  { @level.move(:left) }
+		menu.choice(:right) { @level.move(:right) }
+		menu.choice(:quit)  { @end = true }
+	end
 end
