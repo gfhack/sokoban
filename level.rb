@@ -23,30 +23,22 @@ class Level
 
    def move(direction)
       last_pos = @player.position
-      x = last_pos[:x]
-      y = last_pos[:y]
+      x = last_pos[:x][0]
+      y = last_pos[:y][0]
 
-      puts last_pos
-      puts x.inspect
-      puts y.inspect
+      case direction
+         when :up
+            @player.x = (x-1)
+         when :down
+            @player.x = (x+1)
+         when :left
+            @player.y = (y-1)
+         when :right
+            @player.y = (y+1)
+      end
 
-      #case direction
-      #   when :up
-      #      @y--
-      #      @level.y @y
-      #   when :down
-      #      @y++
-      #      @level.y @y
-      #   when :left
-      #      @x--
-      #      @level.x @x
-      #   when :right
-      #      @x++
-      #      @level.x @x
-      #end
-
-      #@layout[@player.x][@player.y]
-      #clear_last_pos(@last_pos)
+      @layout[@player.x][@player.y] = "@"
+      clear_last_pos(last_pos)
    end
 
    def finished?
@@ -65,7 +57,7 @@ class Level
    private
 
    def clear_last_pos(last_pos)
-      @layout[last_pos[:x]][last_pos[:y]] = " "
+      @layout[last_pos[:x][0]][last_pos[:y][0]] = " "
    end
 
    def find_player
