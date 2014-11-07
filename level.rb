@@ -28,20 +28,60 @@ class Level
 
       case direction
          when :up
-            unless @layout[x-1][y] == "#"
-               @player.x = (x-1)
+            unless (@layout[x-1][y] == "#")
+               if (@layout[x-1][y] == "o" && (@layout[x-2][y] == " " || @layout[x-2][y] == "."))
+                  if @layout[x-2][y] == "."
+                     @layout[x-2][y] = "*"
+                  else
+                     @layout[x-2][y] = "o"
+                  end
+                  
+                  @player.x = (x-1)
+               elsif (@layout[x-1][y] == " ")
+                  @player.x = (x-1)
+               end
             end
          when :down
-            unless @layout[x+1][y] == "#"
-               @player.x = (x+1)
+            unless (@layout[x+1][y] == "#")
+               if (@layout[x+1][y] == "o" && (@layout[x+2][y] == " " || @layout[x+2][y] == "."))
+                  if @layout[x+2][y] == "."
+                     @layout[x+2][y] = "*"
+                  else
+                     @layout[x+2][y] = "o"
+                  end
+                  
+                  @player.x = (x+1)
+               elsif (@layout[x+1][y] == " ")
+                  @player.x = (x+1)
+               end
             end
          when :left
-            unless @layout[x][y-1] == "#"
-               @player.y = (y-1)
+            unless (@layout[x][y-1] == "#")
+               if (@layout[x][y-1] == "o" && (@layout[x][y-2] == " " || @layout[x][y-2] == "."))
+                  if @layout[x][y-2] == "."
+                     @layout[x][y-2] = "*"
+                  else
+                     @layout[x][y-2] = "o"
+                  end
+                  
+                  @player.y = (y-1)
+               elsif (@layout[x][y-1] == " ")
+                  @player.y = (y-1)
+               end
             end
          when :right
-            unless @layout[x][y+1] == "#"
-               @player.y = (y+1)
+            unless (@layout[x][y+1] == "#")
+               if (@layout[x][y+1] == "o" && (@layout[x][y+2] == " " || @layout[x][y+2] == "."))
+                  if @layout[x][y+2] == "."
+                     @layout[x][y+2] = "*"
+                  else
+                     @layout[x][y+2] = "o"
+                  end
+                  
+                  @player.y = (y+1)
+               elsif (@layout[x][y+1] == " ")
+                  @player.y = (y+1)
+               end
             end
       end
 
